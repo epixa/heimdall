@@ -1,4 +1,4 @@
-# Heimdall
+# Heimdall [![Circle CI](https://circleci.com/gh/epixa/heimdall.svg?style=svg&circle-token=8dc2078cd9ad524dfd0361b3221f3dee796f7256)](https://circleci.com/gh/epixa/heimdall)
 
 To start your Phoenix app:
 

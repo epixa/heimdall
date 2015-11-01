@@ -1,0 +1,39 @@
+<h1>Sign up</h1>
+
+<%= form_for @changeset, user_path(@conn, :create), fn f -> %>
+  <%= if f.errors != [] do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below:</p>
+      <ul>
+        <%= for {attr, message} <- f.errors do %>
+          <li><%= humanize(attr) %> <%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <label>Email</label>
+    <%= email_input f, :email, class: "form-control" %>
+  </div>
+
+  <%= inputs_for f, :password, fn i -> %>
+    <%= if i.errors != [] do %>
+      <div class="alert alert-danger">
+        <ul>
+          <%= for {attr, message} <- i.errors do %>
+            <li><%= humanize(attr) %> <%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <label>Password</label>
+      <%= password_input i, :raw_password, class: "form-control" %>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= submit "Signup", class: "btn btn-primary" %>
+  </div>
+<% end %>

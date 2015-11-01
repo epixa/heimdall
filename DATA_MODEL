@@ -1,0 +1,33 @@
+OauthApp: client_id, client_secret, domain
+  A specific app (eg provisioning service) that auths against the api
+  client_id MUST be cryptographically random and unique
+  client_secret MUST be hashed like a password
+  domain SHOULD be used to verify redirect uris
+
+OauthAttempt: code, state, expired_on, oauth_app_id, user_id, auth_token_id
+  An attempt by a User to authenticate for an OauthApp
+  Tokens MUST expire after a certain date (10 minutes)
+
+  mix phoenix.gen.html OauthAttempt oauth_attempts code:string state:string expired_on:date oauth_app_id:references:oath_apps user_id:references:users
+
+User: email, email_verified
+  A uniquely identifiable person
+  No credentials are stored on User to help prevent password hash loss
+
+  mix phoenix.gen.html User users email:string email_verified:boolean
+
+AuthPassword: password, user_id
+  Each user MUST have one password
+
+  mix phoenix.gen.html AuthPassword auth_password password:string user_id:references:users
+
+AuthToken: token, expired_on, user_id
+  Each user MAY have one or more tokens
+  Tokens MUST expire after a certain date (24 hours)
+
+PasswordResetAttempt: token_id, token_secret, expired_on, user_id
+  An attempt to reset a user's password
+  token_id MUST be cryptographically random and unique
+  token_secret MUST be hashed like a password
+  Tokens MUST expire after a certain date (10 minutes)
+  A new PasswordResetAttempt MUST expire any existing attempts for that user
